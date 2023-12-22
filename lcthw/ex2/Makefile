@@ -2,10 +2,11 @@ CFLAGS=-Wall -g
 .SILENT: fun
 
 all:
-	cc ex1.c -o ex1 
+	mkdir build
+	cc ex1.c -o ./build/ex1 
 
 clean:
-	rm -f ex1
+	rm -fr build
 
 run: 
 	./ex1

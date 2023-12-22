@@ -56,6 +56,22 @@ I have a bunch of notes from the last several years on `i3` and `vim` and `zsh` 
 
 > *dotfiles?*
 
+### git
+Remove a file (like your toy binary):
+```
+git rm <file>
+git commit --amend
+```
+
+
+.gitignore all build folders moving forward:
+```
+**/build/
+```
+
+
+
+
 ### zsh
 
 #### fzf
@@ -79,3 +95,4 @@ I have a bunch of notes from the last several years on `i3` and `vim` and `zsh` 
 ## links 
 
 - https://stackoverflow.com/questions/1780599/what-is-the-meaning-of-posix
+
