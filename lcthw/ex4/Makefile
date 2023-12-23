@@ -9,16 +9,16 @@ ifeq ($(UNAME_S),Linux)
     CFLAGS := -std=c11 -Wall
 endif
 ifeq ($(UNAME_S),Darwin)
-    CC := clang
-    CFLAGS := -std=c11 -Wall
+    CC := /usr/bin/clang
+    CFLAGS := -fsanitize=address -std=c11 -Wall
 endif
 
 # Target and sources
-TARGET := ex4
-SOURCES := memory-leak.c
+TARGET := ./build/ex4
+SOURCES := example_UseAfterFree.c 
 
 
-all:   	build_dir $(TARGET)
+all:   	clean build_dir $(TARGET)
 	
 $(TARGET): $(SOURCES)
 	$(CC) $(CFLAGS) -o $@ $^ #tab, not spaces!
@@ -31,7 +31,7 @@ clean:
 	rm -fr build
 
 run: 
-	./build/ex4
+	 ASAN_SYMBOLIZER_PATH=/usr/local/bin/llvm-symbolizer ./build/ex4
 
 fun: 
 	# lsof -f
@@ -39,7 +39,8 @@ fun:
 	# so I thought it would be cool to detect the OS 
 	echo $(UNAME_S)
 	echo ""
-	echo "This exercise is getting into memory leaks straight away."
+	echo "This exercise is getting into memory safety straight away."
 	echo ""
+	echo "Note: 'use after free' is not exactly the same thing as a memory leak. "
 	
 
