@@ -1,3 +1,6 @@
+# Ignore Vim *.swp files
+*.swp
+
 # Ignore build folders
 **/build/
 
