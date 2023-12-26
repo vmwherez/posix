@@ -69,7 +69,9 @@ git commit --amend
 **/build/
 ```
 
+#### tig
 
+*I just used this to check if my commits cleaned up properly. Deserves a note.*
 
 
 ### zsh
