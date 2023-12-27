@@ -4,7 +4,7 @@ CFLAGS=-Wall -g
 all:    clean
 	
 	mkdir build
-	cc ex*.c -o ./build/ex1 
+	cc ex*.c -o ./build/ex 
 
 clean:
 	rm -fr build
