@@ -35,6 +35,58 @@ $ gdb ./build/ex
 (gdb) next
 ... [ step through each line of C, nexti steps through assembly ] ...
 ... [ it will stop on the SIGSEGV (segfault) ] ...
-(gdb) backtrace 
+
+$eax   : 0x41      
+$ebx   : 0xf7ffaf88  →  0x00095ec8
+$ecx   : 0x0       
+$edx   : 0x7fffffff
+$esp   : 0xffffd920  →  0xf7ffaf88  →  0x00095ec8
+$ebp   : 0xffffffff
+$esi   : 0x7fffffff
+$edi   : 0x41      
+$eip   : 0xf7fb5bc7  →  <memchr+24> movzx ebx, BYTE PTR [eax]
+$eflags: [zero carry parity adjust sign TRAP interrupt direction overflow resume virtualx86 identification]
+$cs: 0x00 $ss: 0x00 $ds: 0x00 $es: 0x00 $fs: 0x00 $gs: 0x00 
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── stack ────
+0xffffd920│+0x0000: 0xf7ffaf88  →  0x00095ec8    ← $esp
+0xffffd924│+0x0004: 0x7fffffff
+0xffffd928│+0x0008: 0x00000041
+0xffffd92c│+0x000c: 0xf7fb675c  →  <strnlen+32> add esp, 0x10
+0xffffd930│+0x0010: 0x00000041
+0xffffd934│+0x0014: 0x00000000
+0xffffd938│+0x0018: 0x7fffffff
+0xffffd93c│+0x001c: 0x7fffffff
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── code:x86:32 ────
+   0xf7fb5bc1 <memchr+18>      je     0xf7fb5bd2 <memchr+35>
+   0xf7fb5bc3 <memchr+20>      test   edx, edx
+   0xf7fb5bc5 <memchr+22>      je     0xf7fb5c16 <memchr+103>
+ → 0xf7fb5bc7 <memchr+24>      movzx  ebx, BYTE PTR [eax]
+   0xf7fb5bca <memchr+27>      cmp    ebx, ecx
+   0xf7fb5bcc <memchr+29>      je     0xf7fb5be8 <memchr+57>
+   0xf7fb5bce <memchr+31>      inc    eax
+   0xf7fb5bcf <memchr+32>      dec    edx
+   0xf7fb5bd0 <memchr+33>      jmp    0xf7fb5bbf <memchr+16>
+───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── threads ────
+[#0] Id 1, stopped 0xf7fb5bc7 in memchr (), reason: SIGSEGV
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── trace ────
+[#0] 0xf7fb5bc7 → memchr()
+[#1] 0xf7fb675c → strnlen()
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+gef➤  backtrace
+#0  0xf7fb5bc7 in memchr () from /lib/ld-musl-i386.so.1
+#1  0xf7fb675c in strnlen () from /lib/ld-musl-i386.so.1
+#2  0x7fffffff in ?? ()
+#3  0xf7ffaf88 in ?? () from /lib/ld-musl-i386.so.1
+Backtrace stopped: Cannot access memory at address 0x3
+
 
 ```
+
+```
+ex15.c:19:39: warning: format specifies type 'char *' but the argument has type 'char' [-Wformat]
+                printf("%s has %d years alive. \n", names[i], ages[i]);
+                        ~~                          ^~~~~~~~
+```
+
+
