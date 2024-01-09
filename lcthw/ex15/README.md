@@ -92,3 +92,14 @@ ex15.c:19:39: warning: format specifies type 'char *' but the argument has type 
                         ~~                          ^~~~~~~~
 ```
 
+
+#### checking Zed Shaw's resources for errata
+
+Where I was at was pretty far from what the fix was. Zed's version has a change which resolves all of the warnings:
+
+```
+int *cur_age = (int *)names
+```
+
+I wasn't completely off but I was tracking lines higher up, I was aware of some kind of type or init error around names. 
+Still, good progress with debugging (`gdb` and `lldb`).
