@@ -15,9 +15,8 @@ run:
 	echo "read the man pages, make read"
 
 read: 
-	man 3 assert # man 3 malloc	
-	# man 3 free
+	man 3 assert
 	echo ""
-	man 3 free 
+	man 3 free # moving between Alpine (linux)  and Darwin (BSD) we get different manpages. Cool. 
 	man 3 malloc
 	
