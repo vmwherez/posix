@@ -1,6 +1,6 @@
 #### debugging the segmentation fault in `ex15` using `lldb`
 
-```
+```bash
 (lldb) run
 Process 6341 launched: '/Users/mvm/Desktop/posix/lcthw/ex15/build/ex' (x86_64)
 Process 6341 stopped
@@ -27,7 +27,7 @@ Target 0: (ex) stopped.
 
 `next lay` is cool but the layout was breaking in GEF in `iSH`.
 
-```
+```bash
 $ gdb ./build/ex
 (gdb) break main
 (gdb) run 
@@ -83,10 +83,12 @@ Backtrace stopped: Cannot access memory at address 0x3
 
 ```
 
-```
+#### strlen() ?
+
+```bash
+
 ex15.c:19:39: warning: format specifies type 'char *' but the argument has type 'char' [-Wformat]
                 printf("%s has %d years alive. \n", names[i], ages[i]);
                         ~~                          ^~~~~~~~
 ```
-
 
