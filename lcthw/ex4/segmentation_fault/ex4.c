@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+// http://www.unknownroad.com/rtfm/gdbtut/gdbsegfault.html
 int main(int argc, char **argv) {
 	char *buf;
 
