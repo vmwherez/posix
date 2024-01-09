@@ -1,4 +1,4 @@
-#### debugging `ex15` segmentation fault in `lldb`
+#### debugging the segmentation fault in `ex15` using `lldb`
 
 ```
 (lldb) run
@@ -23,3 +23,18 @@ Target 0: (ex) stopped.
     frame #6: 0x00007fff6a4f5cc9 libdyld.dylib`start + 1
 ```
 
+#### debugging the segentation fault in `ex15` using `gdb` / `GEF`
+
+`next lay` is cool but the layout was breaking in GEF in `iSH`.
+
+```
+$ gdb ./build/ex
+(gdb) break main
+(gdb) run 
+... [ breaks at function main ] ...
+(gdb) next
+... [ step through each line of C, nexti steps through assembly ] ...
+... [ it will stop on the SIGSEGV (segfault) ] ...
+(gdb) backtrace 
+
+```
