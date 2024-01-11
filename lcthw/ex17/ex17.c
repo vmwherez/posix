@@ -35,8 +35,10 @@ void die(const char *message) {
 
 }
 
+
+//TODO: this is another type warning
 void Address_print(struct Address *addr) {
-	printf("%d %s %s \n", addr->id, addr->name, addr->email);
+	printf("%d %d %s \n", addr->id, addr->name, addr->email);
 }
 
 void Database_load(struct Connection *conn) {
@@ -97,23 +99,48 @@ void Database_write(struct Connection *conn) {
 
 
 void Database_create(struct Connection *conn) {
+	int i = 0;
 
+	for (i = 0; i < MAX_ROWS; i++) {
+		// make a prototype to initialize it
+		struct Address addr = {.id = i, .set = 0};
+		// then just assign
+		conn->db->rows[i] = addr;
+
+	}
 }
 
 void Database_set(struct Connection *conn, int id, const char *name, const char *email) {
-	
+	struct Address *addr = &conn->db->rows[id];
+	if (addr->set)
+		die("Already set. Delete it first.");
+	addr->set = 1;
 }
 
 void Database_get(struct Connection *conn, int id) {
-
+	struct Address *addr = &conn->db->rows[id];
+	if (addr->set) {
+		Address_print(addr);
+	} else {
+		die("ID is not set");
+	}
 }
 
 void Database_delete(struct Connection *conn, int id) {
-
+	struct Address addr = {.id = id, .set = 0};
+	conn->db->rows[id] = addr;
 }
 
 void Database_list(struct Connection *conn) {
+ 	int i = 0;
+	struct Database *db = conn->db;
 
+	for (i = 0; i < MAX_ROWS; i++) {
+		struct Address *cur = &db->rows[i];
+		if (cur->set) {
+			Address_print(cur);
+		}
+	}
 }
 
 int main(int argc, char *argv[]) {
@@ -134,12 +161,24 @@ int main(int argc, char *argv[]) {
       				Database_write(conn);
       				break;
 			case 'g':
+				if (argc != 4)
+					die("Need an ID to get.");
+				Database_get(conn, id);
 				break;
 			case 's':
+				if (argc != 6)
+					die("Need an ID to set!");
+				Database_set(conn, id, argv[4], argv[5]);
+				Database_write(conn);
 				break;
 			case 'd':
+				if (argc != 6)
+					die("Need an ID to delete.");
+				Database_delete(conn, id);
+				Database_write(conn);
 				break;
-			case '1':
+			case 'l':
+				Database_list(conn);
 				break;
 			default:
 				die("Invalid action. Available actions: (c)reate (g)et, (s)et, (d)elete, (l)ist");
